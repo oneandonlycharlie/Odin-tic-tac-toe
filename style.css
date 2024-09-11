@@ -32,7 +32,7 @@ button {
     padding: 10px;
 }
 
-.gamestate {
+.window {
     font-size: 1.5rem;
     width: max(300px,10vw);
     align-self: center;
@@ -41,6 +41,7 @@ button {
     margin:1rem;
     border: 2px solid cadetblue;
     padding: 2% 5%;
+    text-align: center;
 }
 
 
@@ -54,13 +55,12 @@ button {
     align-self: center;
     gap: 2px;
     
-    .spot {
-        font-size: 5rem;
+    div {
+        font-size: 2rem;
         text-align: center;
         background-color: antiquewhite;
     }
 }
-
 
 
 footer {
