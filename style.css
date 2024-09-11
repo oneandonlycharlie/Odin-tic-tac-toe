@@ -1,0 +1,93 @@
+body {
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: antiquewhite;
+}
+
+header {
+    text-align: center;
+    height: 10vh;
+    font-size: 3rem;
+    background-color:cadetblue;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2) ;
+}
+
+main {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding:2px 2rem;
+}
+
+button {
+    font-size: 1.5rem;
+    width: max(100px,10vw);
+    align-self: center;
+    background-color: cadetblue;
+    border-radius: 15px;
+    margin:1rem;
+    border: 0px;
+    padding: 10px;
+}
+
+.gamestate {
+    font-size: 1.5rem;
+    width: max(300px,10vw);
+    align-self: center;
+    background-color: alicewhite;
+    border-radius: 15px;
+    margin:1rem;
+    border: 2px solid cadetblue;
+    padding: 2% 5%;
+}
+
+
+.container {
+    margin: 5%;
+    background-color: black;
+    height: 40vh;
+    width: 40vw;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 1fr 1fr 1fr ;
+    align-self: center;
+    gap: 2px;
+    
+    .spot {
+        font-size: 5rem;
+        text-align: center;
+        background-color: antiquewhite;
+    }
+}
+
+
+
+footer {
+    height: 2vh;
+    text-align: center;
+    position:relative;
+    bottom:10px;
+}
+
+dialog {
+    background-color:antiquewhite;
+    border:2rem solid white;
+    border-radius: 10px;
+    height: 40vh;
+    font-size: 1.5rem;
+    width:40vw;
+    input {
+        height: 5vh;
+        width: 100%;
+        font-size:inherit;
+        margin-bottom: 18px;
+    }
+    label {
+        font-size: 1.5rem;
+    }
+    button {
+        width: min-content;
+        padding: 10px;
+    }
+}
