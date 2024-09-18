@@ -111,8 +111,8 @@ function checkGame(gameBoard) {
             return true;
         }
     }
-    return (gameBoard.board[0][0] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][2] === gameBoard.currentPlayer) ||
-           (gameBoard.board[0][2] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][0] === gameBoard.currentPlayer);
+    return (gameBoard.board[0][0] === gameBoard.currentPlayer.mark && gameBoard.board[1][1] === gameBoard.currentPlayer.mark && gameBoard.board[2][2] === gameBoard.currentPlayer.mark) ||
+           (gameBoard.board[0][2] === gameBoard.currentPlayer.mark && gameBoard.board[1][1] === gameBoard.currentPlayer.mark && gameBoard.board[2][0] === gameBoard.currentPlayer.mark);
 
 }
 
