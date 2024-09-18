@@ -2,10 +2,16 @@
 // Create a game board, called immediately
 const gameBoard = (function() {
     console.log('gameboard created');
+    const board = [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
+    ];
     const allPlayers= [];
+    const noOfSpots = 0;
     const winner = undefined;
     const currentPlayer = undefined;
-    return {allPlayers, winner,currentPlayer}
+    return {board, allPlayers, winner,currentPlayer, noOfSpots}
 })();
 
 const startButton = document.querySelector("button.start")
@@ -22,37 +28,37 @@ container.addEventListener("click", placeMark)
 // resetButton.addEventListener("click", ??)
 closeButton.addEventListener("click", () => {
     dialog.close();
-    console.log("window closed")
 })
 
 function handleStart(e){
-    console.log("clicked start")
     e.preventDefault();
     dialog.showModal();
 }
 
 function handleSubmit(e){
     e.preventDefault();
-    console.log("clicked submit")
-    let name1= document.getElementById("player-1");
-    let name2 = document.getElementById("playe-2");
+    let name1= document.getElementById("player-1").value;
+    let name2= document.getElementById("player-2").value;
     const player1 = createPlayer(name1,"X");
     const player2 = createPlayer(name2,"O");
-    console.log('players created')
     gameBoard.allPlayers.push(player1);
     gameBoard.allPlayers.push(player2);
     gameBoard.currentPlayer = player1;
     dialog.close();
     displayWindow.textContent = 'Game started!'
-    checkGame();
 }
 
 function placeMark(e){
     let spot = e.target;
-    index = spot.className.split(" ")
-    // console.log(spot.className.split(" "));
+    currentSpot = spot.className.split(" ");
+    let row = +currentSpot[0];
+    let col = +currentSpot[1];
     e.target.textContent = gameBoard.currentPlayer.mark;
-    gameBoard.currentPlayer.setLocation(index);
+    gameBoard.board[row][col] = gameBoard.currentPlayer.mark;
+    gameBoard.currentPlayer.setLocation(currentSpot);
+    if (checkGame(gameBoard) == true) {
+        declare(gameBoard.currentPlayer.name);
+    }
     // switch players
     if (gameBoard.currentPlayer == gameBoard.allPlayers[0]){
         gameBoard.currentPlayer = gameBoard.allPlayers[1];
@@ -66,58 +72,36 @@ function placeMark(e){
 function createPlayer(name,mark){
     const track = [];
     const hasWon = false;
+    let location = [];
     const getLocation = () => location;
     const setLocation = (input) => {
-        const location = { x: input[0] , y: input[1]};
+        location = input;
         track.push(location);
-        console.log(`locaton set as ${location}, ${track.length}`)
     }
-    return {name,track, getLocation,setLocation, hasWon, mark}
+    return {name,location, track, getLocation, setLocation, hasWon, mark}
 }
 
 
-//Check if a player has reached winning condition
-function checkGame() {
-    let totalSpots = 0;
-    for (let player of gameBoard.allPlayers){
-        totalSpots += player.track.length;
-        let xCount = 0, yCount = 0; crossCount = 0, inCenter = false;
-        for (let i of player.track){
-            let xIndex = 0, yIndex = 0; crossIndex = 0;
-            if (xIndex == i["x"]) {
-                xCount++;
-            }
-            if (yIndex == i["y"]){
-                yCount++;
-            } 
-            if (i["x"]== i["y"]) {
-                crossCount++;
-            }
-            if (i["x"]== 0 && i["y"] == 0) {
-                inCetner = true;
-            }
-            xIndex = i["x"];
-            yIndex = i["y"];
-        }
-
-        if (xCount >= 3 || yCount >= 3) {
-            player.hasWon = true;
-            gameBoard.winner = player;
-            declare(gameBoard.winner);
-        }
-        if (crossCount >= 3 && inCenter) {
-            player.hasWon = true;
-            gameBoard.winner = player;
-            declare(gameBoard.winner);
-        }
-    }
-    if (totalSpots >= 9){
+// Check if a player has reached winning condition
+function checkGame(gameBoard) {
+    // check if there's a draw
+    gameBoard.noOfSpots++;
+    if (gameBoard.noOfSpots >= 9){
         displayWindow.textContent = "we have a draw, start again."
     }
+    //find a way to check player's track
+    for (let i = 0; i < 3; i++) {
+        if (gameBoard.board[i].every(cell => cell === gameBoard.currentPlayer.mark) || 
+            [gameBoard.board[0][i], gameBoard.board[1][i], gameBoard.board[2][i]].every(cell => cell === gameBoard.currentPlayer.mark)) {
+            return true;
+        }
+    }
+    return (gameBoard.board[0][0] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][2] === gameBoard.currentPlayer) ||
+           (gameBoard.board[0][2] === gameBoard.currentPlayer && gameBoard.board[1][1] === gameBoard.currentPlayer && gameBoard.board[2][0] === gameBoard.currentPlayer);
+
 }
 
 //Do something to celebrate!
-function declare(player){
-    displayWindow.textContent = `${player.name} has won!`
+function declare(name){
+    displayWindow.textContent = `${name} has won!`
 }
-
