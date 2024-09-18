@@ -25,7 +25,21 @@ const resetButton = document.querySelector(".reset")
 startButton.addEventListener("click", handleStart)
 submitButton.addEventListener("click", handleSubmit)
 container.addEventListener("click", placeMark)
-// resetButton.addEventListener("click", ??)
+
+resetButton.addEventListener("click", ()=> {
+    gameBoard.board = [
+        ['', '', ''],
+        ['', '', ''],
+        ['', '', '']
+    ];
+    gameBoard.allPlayers = [];
+    displayWindow.textContent = "Let's play!";
+    let grids = document.querySelectorAll(".container div");
+    for (let i in grids) {
+        grids[i].textContent = "";
+    }
+})
+
 closeButton.addEventListener("click", () => {
     dialog.close();
 })
