@@ -33,6 +33,7 @@ resetButton.addEventListener("click", ()=> {
         ['', '', '']
     ];
     gameBoard.allPlayers = [];
+    gameBoard.noOfSpots = 0;
     displayWindow.textContent = "Let's play!";
     let grids = document.querySelectorAll(".container div");
     for (let i in grids) {
